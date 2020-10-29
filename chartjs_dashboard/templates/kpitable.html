@@ -1,0 +1,52 @@
+{% extends "layout.html"%}
+{% block content %}
+ <body class="bg-white py-3 px-3 align:center">
+    <h4 style="text-align:center;">Proof of Concept</h4>
+    <div class="container4">
+
+        <div class="col-xs-4 p-1">
+        <table id="customers">
+            <thead>
+                <tr>
+                    {% for item in tableColumns %}
+                    <th>{{ item }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tr>
+            {% for item in lostTimeRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for item in assetAvailRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for item in energyConsumedRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for item in energyGeneratedRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+        </table>
+        <div class="row">
+        <div class="col-xs-4 p-1">
+        <div class="card bg-light">
+            <h6 class="py-3 px-3">Modify KPI Row 1<br><br></h6>
+                <form class="px-3 py-3" method="POST">
+                {{ form.crsf_token }}
+                {{ form.modifier}} 
+                {{ form.val }}
+                <input type="submit" class="btn btn-primary px-3">
+                </form>
+        </div>
+        </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}

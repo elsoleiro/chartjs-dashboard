@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block content %}
+  <body class="bg-white py-3 px-3 align:center">
+          <h4 style="text-align:center;">Proof of Concept</h4>
+    <div class="container4">
+      <div class="row">
+      <div class="col-xs-4 p-1">
+        <div class="card bg-light">
+          <div class="card-body">
+          <h4>Persistent Complaints</h4>
+              <canvas id="myChart" width="700" height="400"></canvas>
+                  <h6>Modify a datapoint</h6>
+                  <form method="POST">
+                    {{ form.crsf_token }}
+                    {{ form.date }}
+                    {{ form.val }}
+                    <input type="submit">
+                  </form>
+                  <h6><a href="/dash" class="btn btn-primary px-3">Back to Dashboard</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script>
+      // Global parameters:
+      // do not resize the chart canvas when its container does (keep at 600x400px)
+
+
+      // define the chart data
+      var chartData = {
+        labels : [{% for item in labels %}
+                   "{{item}}",
+                  {% endfor %}],
+        datasets : [{
+            label: '{{ legend }}',
+            fill: true,
+            lineTension: 0.1,
+            //backgroundColor: "skyblue",
+            borderColor: "purple",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data : [{% for item in values %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false
+        }]
+      }
+
+      // get chart canvas
+      var ctx = document.getElementById("myChart").getContext("2d");
+
+      // create the chart using the chart canvas
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+                 }
+                }]
+                },
+                lineTension: 0.1,
+                responsive: false,
+                beginAtZero: true,
+            }
+      });
+    </script>
+</body>
+{% endblock content %}

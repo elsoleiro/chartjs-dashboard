@@ -1,0 +1,282 @@
+{% extends "layout.html" %}
+{% block content %}
+  <body class="bg-white py-3 px-3">
+          <h4 style="text-align:center;">Proof of Concept</h4>
+    <div class="container">
+      <div class="row">
+      <div class="col-xs-4 p-1">
+        <div class="d-inline-flex card bg-light">
+          <div class="card-body">
+          <h4>Odour</h4>
+          <h6><a href="/activeehoconcerns" class="btn btn-primary px-3">Active EHO Concerns</a>
+            <a href="/highrisksites" class="btn btn-primary px-3">High Risk Sites</a>
+          <a href="/persistentcomplaints" class="btn btn-primary px-3">Persistent Complaints</a>
+          </h6>
+            <canvas id="Odour" width="500" height="400"></canvas>
+            </div>
+        </div>
+      </div>
+    <div class="col-xs-4 p-1">
+      <div class="d-inline-flex card bg-light">
+        <div class="card-body">
+          <h4>Sludge Stocks</h4>
+          <h6><a href="/activeehoconcerns" class="btn btn-primary px-3">North</a>
+            <a href="/highrisksites" class="btn btn-primary px-3">South</a>
+            <a href="/persistentcomplaints" class="btn btn-primary px-3">Thames Valley</a>
+            <a href="/persistentcomplaints" class="btn btn-primary px-3">WWT</a>
+          </h6>
+          <canvas id="SludgeStocks" width="522" height="400"></canvas>
+       </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <small class="text-muted">
+        <a class="ml-2" href="{{ url_for('kpitable') }}">Edit</a>
+    </small>
+        <table style="margin-left:auto;margin-right:auto;" id="customers">
+            <thead>
+                <tr>
+                    {% for item in tableColumns %}
+                    <th>{{ item }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tr>
+            {% for item in lostTimeRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for item in assetAvailRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for item in energyConsumedRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for item in energyGeneratedRow %}
+            <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+        </table>
+    <script>
+
+      // define the chart data
+      var chartData = {
+        labels : [{% for item in labels %}
+                   "{{item}}",
+                  {% endfor %}],
+        datasets : [{
+            label: 'Active EHO Concerns',
+            fill: true,
+            lineTension: 0.1,
+            //backgroundColor: "skyblue",
+            borderColor: "yellow",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "yellow",
+            pointHoverBorderColor: "white",
+            pointHoverBorderWidth: 2,
+            pointRadius: 2 ,
+            pointHitRadius: 10,
+            data : [{% for item in values %}
+                      {{item}},
+                    {% endfor %}],
+        },{
+            label: 'High Risk Sites',
+            data : [{% for item in values1 %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false,
+            lineTension: 0.1,
+            borderColor: "blue",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "blue",
+            pointHoverBorderColor: "white",
+            pointHoverBorderWidth: 2,
+            pointRadius: 2,
+            pointHitRadius: 10,
+        },{
+            label: 'Persistent Complaints',
+            data : [{% for item in values2 %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false,
+            lineTension: 0.1,
+            borderColor: "purple",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "purple",
+            pointHoverBorderColor: "white",
+            pointHoverBorderWidth: 2,
+            pointRadius: 2,
+            pointHitRadius: 10,
+        }]
+      }
+
+
+      // get chart canvas
+      var ctx = document.getElementById("Odour").getContext("2d");
+
+      // create the chart using the chart canvas
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+                 }
+                }]
+                },
+                lineTension: 0.1,
+                responsive: false,
+                beginAtZero: true,
+            }
+      });
+
+      // define the chart data
+      var chartData = {
+        labels : [{% for item in labels3 %}
+                   "{{item}}",
+                  {% endfor %}],
+        datasets : [{
+            label: 'Sludge Stocks NL',
+            fill: true,
+            lineTension: 0.1,
+            //backgroundColor: "skyblue",
+            borderColor: "blue",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "blue",
+            pointHoverBorderColor: "white",
+            pointHoverBorderWidth: 2,
+            pointRadius: 2 ,
+            pointHitRadius: 10,
+            data : [{% for item in values3 %}
+                      {{item}},
+                    {% endfor %}],
+        },{
+            label: 'Sludge Stocks SL',
+            data : [{% for item in values4 %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false,
+            lineTension: 0.1,
+            borderColor: "orange",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "orange",
+            pointHoverBorderColor: "white",
+            pointHoverBorderWidth: 2,
+            pointRadius: 2,
+            pointHitRadius: 10,
+        },{
+            label: 'Sludge Stocks TV',
+            data : [{% for item in values5 %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false,
+            lineTension: 0.1,
+            borderColor: "green",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "green",
+            pointHoverBorderColor: "white",
+            pointHoverBorderWidth: 2,
+            pointRadius: 2,
+            pointHitRadius: 10,
+        },{
+            label: 'Sludge Stocks WWT',
+            data : [{% for item in values6 %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false,
+            lineTension: 0.1,
+            borderColor: "red",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "red",
+            pointHoverBorderColor: "white",
+            pointHoverBorderWidth: 2,
+            pointRadius: 2,
+            pointHitRadius: 10,
+        }]
+      }
+
+
+      // get chart canvas
+      var ctx = document.getElementById("SludgeStocks").getContext("2d");
+
+      // create the chart using the chart canvas
+      var myChart2 = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                callback: function(value, index, values) {
+                    return value+ ' %';
+                },
+                beginAtZero: true
+                 }
+                }]
+                },
+                lineTension: 0.1,
+                responsive: false,
+                beginAtZero: true,
+            }
+      });
+
+    </script>
+  </body>
+{% endblock content %}

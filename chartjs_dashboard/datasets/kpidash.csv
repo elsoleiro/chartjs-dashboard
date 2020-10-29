@@ -1,0 +1,5 @@
+KPI,Unit,Month Actual,Month Target,YTD Actual,YTD Target,YE Target,RAG
+Lost Time Injury Frequency Rate,%,0.20,0.14,Not Applicable,0.14,0.14,
+Asset Availability,%,91.0,90.0,Not Applicable,90.0,95.0,
+Energy (GWh) Consumed,GWh,53.26,56.2,160.0,110.0,663.0,
+Energy (GWh) Generated,GWh,24.2,27,74.6,55.2,338.7,
